@@ -1,13 +1,3 @@
-const std = @import("std");
-const fmt = std.fmt;
-const Tuple = std.meta.Tuple;
-
-const godot = @import("gdzig.zig");
-const assertIs = godot.debug.assertIs;
-const Object = godot.class.Object;
-const RefCounted = godot.class.RefCounted;
-const StringName = godot.builtin.StringName;
-
 /// Returns true if the type is a Godot "class" type.
 ///
 /// Expects the underlying type, e.g `Node` or `MyClass`, not `*Node` or `*MyClass`.
@@ -301,6 +291,16 @@ pub fn getNamePtr(comptime T: type) *StringName {
     return &Static.name;
 }
 
+pub fn getSignalNameCanonical(comptime S: type) [:0]const u8 {
+    @setEvalBranchQuota(10_000);
+    comptime var signal_type: []const u8 = getTypeShortName(S);
+    if (comptime std.mem.endsWith(u8, signal_type, "Signal")) {
+        signal_type = comptime signal_type[0 .. signal_type.len - "Signal".len];
+    }
+    const signal_type_snake = comptime case.comptimeTo(.snake, signal_type) catch unreachable;
+    return comptime std.fmt.comptimePrint("{s}", .{signal_type_snake});
+}
+
 const tests = struct {
     const testing = std.testing;
     const Node = godot.class.Node;
@@ -425,3 +425,12 @@ const tests = struct {
 comptime {
     _ = tests;
 }
+
+const std = @import("std");
+const case = @import("case");
+
+const godot = @import("gdzig.zig");
+const assertIs = godot.debug.assertIs;
+const Object = godot.class.Object;
+const RefCounted = godot.class.RefCounted;
+const StringName = godot.builtin.StringName;
