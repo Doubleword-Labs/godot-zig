@@ -24,6 +24,7 @@ const std = @import("std");
 const c = @import("gdextension");
 const oopz = @import("oopz");
 
+pub const api = @import("api.zig");
 pub const builtin = @import("builtin.zig");
 pub const class = @import("class.zig");
 pub const general = @import("general.zig");
