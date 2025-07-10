@@ -49,6 +49,7 @@ pub fn build(b: *Build) !void {
     bindgen.mod.addImport("temp", temp.mod);
 
     gdzig.mod.addImport("gdextension", gdextension.mod);
+    gdzig.mod.addImport("case", case.mod);
 
     // Steps
     b.step("bindgen", "Build the bindgen executable").dependOn(&bindgen.install.step);

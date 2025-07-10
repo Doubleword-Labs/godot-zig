@@ -352,9 +352,10 @@ fn writeClass(w: *Writer, class: *const Context.Class, ctx: *const Context) !voi
     }
 
     // Signals
-    // for (class.signals.values()) |*signal| {
-    //     try writeSignal(w, class.name, signal);
-    // }
+    for (class.signals.values()) |*signal| {
+        try writeSignal(w, signal);
+        try w.writeLine("");
+    }
 
     // Constructor
     if (class.is_instantiable) {
@@ -435,6 +436,27 @@ fn writeClass(w: *Writer, class: *const Context.Class, ctx: *const Context) !voi
 
     // Imports
     try writeImports(w, "..", &class.imports, ctx);
+}
+
+fn writeSignal(w: *Writer, signal: *const Context.Signal) !void {
+    try writeDocBlock(w, signal.doc);
+    try w.print("pub const {s} = struct {{", .{signal.struct_name});
+
+    if (signal.parameters.count() > 0) {
+        try w.writeLine("");
+        var is_first = true;
+        for (signal.parameters.values()) |param| {
+            if (!is_first) {
+                try w.writeAll(", ");
+            }
+            try w.print("{s}: ", .{param.name});
+            try w.writeAll("?");
+            try writeTypeAtOptionalParameterField(w, &param.type);
+            try w.writeAll(" = null");
+            is_first = false;
+        }
+    }
+    try w.writeLine("};");
 }
 
 fn writeClassFunction(w: *Writer, class: *const Context.Class, function: *const Context.Function, ctx: *const Context) !void {
