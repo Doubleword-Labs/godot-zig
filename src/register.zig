@@ -274,7 +274,7 @@ pub fn registerSignal(comptime T: type, comptime S: type) void {
         @compileError("Signal '" ++ meta.getTypeShortName(S) ++ "' for '" ++ meta.getTypeShortName(T) ++ "' must be a struct");
     }
 
-    const signal_name = meta.getSignalName(S);
+    const signal_name = meta.getSignalNameCanonical(S);
 
     var arguments: [std.meta.fields(S).len]object.PropertyInfo = undefined;
     inline for (std.meta.fields(S), 0..) |field, i| {

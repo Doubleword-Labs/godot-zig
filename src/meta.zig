@@ -291,7 +291,7 @@ pub fn getNamePtr(comptime T: type) *StringName {
     return &Static.name;
 }
 
-pub fn getSignalName(comptime S: type) [:0]const u8 {
+pub fn getSignalNameCanonical(comptime S: type) [:0]const u8 {
     @setEvalBranchQuota(10_000);
     comptime var signal_type: []const u8 = getTypeShortName(S);
     if (comptime std.mem.endsWith(u8, signal_type, "Signal")) {
