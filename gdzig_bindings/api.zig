@@ -71,9 +71,9 @@ pub const ClassTag = opaque {
 
 // Structs
 pub const InstanceBindingCallbacks = extern struct {
-    create_callback: c.GDExtensionInstanceBindingCreateCallback,
-    free_callback: c.GDExtensionInstanceBindingFreeCallback,
-    reference_callback: c.GDExtensionInstanceBindingReferenceCallback,
+    create_callback: ?*const InstanceBindingCreateCallback,
+    free_callback: ?*const InstanceBindingFreeCallback,
+    reference_callback: ?*const InstanceBindingReferenceCallback,
 };
 
 pub const PropertyInfo = extern struct {
@@ -99,8 +99,8 @@ pub const MethodInfo = extern struct {
 pub const ClassMethodInfo = extern struct {
     name: *StringName,
     method_userdata: ?*anyopaque,
-    call_func: c.GDExtensionClassMethodCall,
-    ptrcall_func: c.GDExtensionClassMethodPtrCall,
+    call_func: ?*const ClassMethodCall,
+    ptrcall_func: ?*const ClassMethodPtrCall,
     method_flags: u32,
     has_return_value: bool,
     return_value_info: *PropertyInfo,
@@ -126,110 +126,110 @@ pub const CallableCustomInfo = extern struct {
     callable_userdata: ?*anyopaque,
     library: *ClassLibrary,
     object_id: ObjectID,
-    call_func: c.GDExtensionCallableCustomCall,
-    is_valid_func: c.GDExtensionCallableCustomIsValid,
-    free_func: c.GDExtensionCallableCustomFree,
-    hash_func: c.GDExtensionCallableCustomHash,
-    equal_func: c.GDExtensionCallableCustomEqual,
-    less_than_func: c.GDExtensionCallableCustomLessThan,
-    to_string_func: c.GDExtensionCallableCustomToString,
+    call_func: ?*const CallableCustomCall,
+    is_valid_func: ?*const CallableCustomIsValid,
+    free_func: ?*const CallableCustomFree,
+    hash_func: ?*const CallableCustomHash,
+    equal_func: ?*const CallableCustomEqual,
+    less_than_func: ?*const CallableCustomLessThan,
+    to_string_func: ?*const CallableCustomToString,
 };
 
 pub const CallableCustomInfo2 = extern struct {
     callable_userdata: ?*anyopaque,
     library: *ClassLibrary,
     object_id: ObjectID,
-    call_func: c.GDExtensionCallableCustomCall,
-    is_valid_func: c.GDExtensionCallableCustomIsValid,
-    free_func: c.GDExtensionCallableCustomFree,
-    hash_func: c.GDExtensionCallableCustomHash,
-    equal_func: c.GDExtensionCallableCustomEqual,
-    less_than_func: c.GDExtensionCallableCustomLessThan,
-    to_string_func: c.GDExtensionCallableCustomToString,
-    get_argument_count_func: c.GDExtensionCallableCustomGetArgumentCount,
+    call_func: ?*const CallableCustomCall,
+    is_valid_func: ?*const CallableCustomIsValid,
+    free_func: ?*const CallableCustomFree,
+    hash_func: ?*const CallableCustomHash,
+    equal_func: ?*const CallableCustomEqual,
+    less_than_func: ?*const CallableCustomLessThan,
+    to_string_func: ?*const CallableCustomToString,
+    get_argument_count_func: ?*const CallableCustomGetArgumentCount,
 };
 
 pub const ScriptInstanceInfo = extern struct {
-    set_func: c.GDExtensionScriptInstanceSet,
-    get_func: c.GDExtensionScriptInstanceGet,
-    get_property_list_func: c.GDExtensionScriptInstanceGetPropertyList,
-    free_property_list_func: c.GDExtensionScriptInstanceFreePropertyList,
-    property_can_revert_func: c.GDExtensionScriptInstancePropertyCanRevert,
-    property_get_revert_func: c.GDExtensionScriptInstancePropertyGetRevert,
-    get_owner_func: c.GDExtensionScriptInstanceGetOwner,
-    get_property_state_func: c.GDExtensionScriptInstanceGetPropertyState,
-    get_method_list_func: c.GDExtensionScriptInstanceGetMethodList,
-    free_method_list_func: c.GDExtensionScriptInstanceFreeMethodList,
-    get_property_type_func: c.GDExtensionScriptInstanceGetPropertyType,
-    has_method_func: c.GDExtensionScriptInstanceHasMethod,
-    call_func: c.GDExtensionScriptInstanceCall,
-    notification_func: c.GDExtensionScriptInstanceNotification,
-    to_string_func: c.GDExtensionScriptInstanceToString,
-    refcount_incremented_func: c.GDExtensionScriptInstanceRefCountIncremented,
-    refcount_decremented_func: c.GDExtensionScriptInstanceRefCountDecremented,
-    get_script_func: c.GDExtensionScriptInstanceGetScript,
-    is_placeholder_func: c.GDExtensionScriptInstanceIsPlaceholder,
-    set_fallback_func: c.GDExtensionScriptInstanceSet,
-    get_fallback_func: c.GDExtensionScriptInstanceGet,
-    get_language_func: c.GDExtensionScriptInstanceGetLanguage,
-    free_func: c.GDExtensionScriptInstanceFree,
+    set_func: ?*const ScriptInstanceSet,
+    get_func: ?*const ScriptInstanceGet,
+    get_property_list_func: ?*const ScriptInstanceGetPropertyList,
+    free_property_list_func: ?*const ScriptInstanceFreePropertyList,
+    property_can_revert_func: ?*const ScriptInstancePropertyCanRevert,
+    property_get_revert_func: ?*const ScriptInstancePropertyGetRevert,
+    get_owner_func: ?*const ScriptInstanceGetOwner,
+    get_property_state_func: ?*const ScriptInstanceGetPropertyState,
+    get_method_list_func: ?*const ScriptInstanceGetMethodList,
+    free_method_list_func: ?*const ScriptInstanceFreeMethodList,
+    get_property_type_func: ?*const ScriptInstanceGetPropertyType,
+    has_method_func: ?*const ScriptInstanceHasMethod,
+    call_func: ?*const ScriptInstanceCall,
+    notification_func: ?*const ScriptInstanceNotification,
+    to_string_func: ?*const ScriptInstanceToString,
+    refcount_incremented_func: ?*const ScriptInstanceRefCountIncremented,
+    refcount_decremented_func: ?*const ScriptInstanceRefCountDecremented,
+    get_script_func: ?*const ScriptInstanceGetScript,
+    is_placeholder_func: ?*const ScriptInstanceIsPlaceholder,
+    set_fallback_func: ?*const ScriptInstanceSet,
+    get_fallback_func: ?*const ScriptInstanceGet,
+    get_language_func: ?*const ScriptInstanceGetLanguage,
+    free_func: ?*const ScriptInstanceFree,
 };
 
 pub const ScriptInstanceInfo2 = extern struct {
-    set_func: c.GDExtensionScriptInstanceSet,
-    get_func: c.GDExtensionScriptInstanceGet,
-    get_property_list_func: c.GDExtensionScriptInstanceGetPropertyList,
-    free_property_list_func: c.GDExtensionScriptInstanceFreePropertyList,
-    get_class_category_func: c.GDExtensionScriptInstanceGetClassCategory,
-    property_can_revert_func: c.GDExtensionScriptInstancePropertyCanRevert,
-    property_get_revert_func: c.GDExtensionScriptInstancePropertyGetRevert,
-    get_owner_func: c.GDExtensionScriptInstanceGetOwner,
-    get_property_state_func: c.GDExtensionScriptInstanceGetPropertyState,
-    get_method_list_func: c.GDExtensionScriptInstanceGetMethodList,
-    free_method_list_func: c.GDExtensionScriptInstanceFreeMethodList,
-    get_property_type_func: c.GDExtensionScriptInstanceGetPropertyType,
-    validate_property_func: c.GDExtensionScriptInstanceValidateProperty,
-    has_method_func: c.GDExtensionScriptInstanceHasMethod,
-    call_func: c.GDExtensionScriptInstanceCall,
-    notification_func: c.GDExtensionScriptInstanceNotification2,
-    to_string_func: c.GDExtensionScriptInstanceToString,
-    refcount_incremented_func: c.GDExtensionScriptInstanceRefCountIncremented,
-    refcount_decremented_func: c.GDExtensionScriptInstanceRefCountDecremented,
-    get_script_func: c.GDExtensionScriptInstanceGetScript,
-    is_placeholder_func: c.GDExtensionScriptInstanceIsPlaceholder,
-    set_fallback_func: c.GDExtensionScriptInstanceSet,
-    get_fallback_func: c.GDExtensionScriptInstanceGet,
-    get_language_func: c.GDExtensionScriptInstanceGetLanguage,
-    free_func: c.GDExtensionScriptInstanceFree,
+    set_func: ?*const ScriptInstanceSet,
+    get_func: ?*const ScriptInstanceGet,
+    get_property_list_func: ?*const ScriptInstanceGetPropertyList,
+    free_property_list_func: ?*const ScriptInstanceFreePropertyList,
+    get_class_category_func: ?*const ScriptInstanceGetClassCategory,
+    property_can_revert_func: ?*const ScriptInstancePropertyCanRevert,
+    property_get_revert_func: ?*const ScriptInstancePropertyGetRevert,
+    get_owner_func: ?*const ScriptInstanceGetOwner,
+    get_property_state_func: ?*const ScriptInstanceGetPropertyState,
+    get_method_list_func: ?*const ScriptInstanceGetMethodList,
+    free_method_list_func: ?*const ScriptInstanceFreeMethodList,
+    get_property_type_func: ?*const ScriptInstanceGetPropertyType,
+    validate_property_func: ?*const ScriptInstanceValidateProperty,
+    has_method_func: ?*const ScriptInstanceHasMethod,
+    call_func: ?*const ScriptInstanceCall,
+    notification_func: ?*const ScriptInstanceNotification2,
+    to_string_func: ?*const ScriptInstanceToString,
+    refcount_incremented_func: ?*const ScriptInstanceRefCountIncremented,
+    refcount_decremented_func: ?*const ScriptInstanceRefCountDecremented,
+    get_script_func: ?*const ScriptInstanceGetScript,
+    is_placeholder_func: ?*const ScriptInstanceIsPlaceholder,
+    set_fallback_func: ?*const ScriptInstanceSet,
+    get_fallback_func: ?*const ScriptInstanceGet,
+    get_language_func: ?*const ScriptInstanceGetLanguage,
+    free_func: ?*const ScriptInstanceFree,
 };
 
 pub const ScriptInstanceInfo3 = extern struct {
-    set_func: c.GDExtensionScriptInstanceSet,
-    get_func: c.GDExtensionScriptInstanceGet,
-    get_property_list_func: c.GDExtensionScriptInstanceGetPropertyList,
-    free_property_list_func: c.GDExtensionScriptInstanceFreePropertyList2,
-    get_class_category_func: c.GDExtensionScriptInstanceGetClassCategory,
-    property_can_revert_func: c.GDExtensionScriptInstancePropertyCanRevert,
-    property_get_revert_func: c.GDExtensionScriptInstancePropertyGetRevert,
-    get_owner_func: c.GDExtensionScriptInstanceGetOwner,
-    get_property_state_func: c.GDExtensionScriptInstanceGetPropertyState,
-    get_method_list_func: c.GDExtensionScriptInstanceGetMethodList,
-    free_method_list_func: c.GDExtensionScriptInstanceFreeMethodList2,
-    get_property_type_func: c.GDExtensionScriptInstanceGetPropertyType,
-    validate_property_func: c.GDExtensionScriptInstanceValidateProperty,
-    has_method_func: c.GDExtensionScriptInstanceHasMethod,
-    get_method_argument_count_func: c.GDExtensionScriptInstanceGetMethodArgumentCount,
-    call_func: c.GDExtensionScriptInstanceCall,
-    notification_func: c.GDExtensionScriptInstanceNotification2,
-    to_string_func: c.GDExtensionScriptInstanceToString,
-    refcount_incremented_func: c.GDExtensionScriptInstanceRefCountIncremented,
-    refcount_decremented_func: c.GDExtensionScriptInstanceRefCountDecremented,
-    get_script_func: c.GDExtensionScriptInstanceGetScript,
-    is_placeholder_func: c.GDExtensionScriptInstanceIsPlaceholder,
-    set_fallback_func: c.GDExtensionScriptInstanceSet,
-    get_fallback_func: c.GDExtensionScriptInstanceGet,
-    get_language_func: c.GDExtensionScriptInstanceGetLanguage,
-    free_func: c.GDExtensionScriptInstanceFree,
+    set_func: ?*const ScriptInstanceSet,
+    get_func: ?*const ScriptInstanceGet,
+    get_property_list_func: ?*const ScriptInstanceGetPropertyList,
+    free_property_list_func: ?*const ScriptInstanceFreePropertyList2,
+    get_class_category_func: ?*const ScriptInstanceGetClassCategory,
+    property_can_revert_func: ?*const ScriptInstancePropertyCanRevert,
+    property_get_revert_func: ?*const ScriptInstancePropertyGetRevert,
+    get_owner_func: ?*const ScriptInstanceGetOwner,
+    get_property_state_func: ?*const ScriptInstanceGetPropertyState,
+    get_method_list_func: ?*const ScriptInstanceGetMethodList,
+    free_method_list_func: ?*const ScriptInstanceFreeMethodList2,
+    get_property_type_func: ?*const ScriptInstanceGetPropertyType,
+    validate_property_func: ?*const ScriptInstanceValidateProperty,
+    has_method_func: ?*const ScriptInstanceHasMethod,
+    get_method_argument_count_func: ?*const ScriptInstanceGetMethodArgumentCount,
+    call_func: ?*const ScriptInstanceCall,
+    notification_func: ?*const ScriptInstanceNotification2,
+    to_string_func: ?*const ScriptInstanceToString,
+    refcount_incremented_func: ?*const ScriptInstanceRefCountIncremented,
+    refcount_decremented_func: ?*const ScriptInstanceRefCountDecremented,
+    get_script_func: ?*const ScriptInstanceGetScript,
+    is_placeholder_func: ?*const ScriptInstanceIsPlaceholder,
+    set_fallback_func: ?*const ScriptInstanceSet,
+    get_fallback_func: ?*const ScriptInstanceGet,
+    get_language_func: ?*const ScriptInstanceGetLanguage,
+    free_func: ?*const ScriptInstanceFree,
 };
 
 pub const Initialization = extern struct {
@@ -249,20 +249,20 @@ pub const GodotVersion = extern struct {
 pub const ClassCreationInfo = struct {
     is_virtual: bool = false,
     is_abstract: bool = false,
-    set_func: ?c.GDExtensionClassSet = null,
-    get_func: ?c.GDExtensionClassGet = null,
-    get_property_list_func: ?c.GDExtensionClassGetPropertyList = null,
-    free_property_list_func: ?c.GDExtensionClassFreePropertyList = null,
-    property_can_revert_func: ?c.GDExtensionClassPropertyCanRevert = null,
-    property_get_revert_func: ?c.GDExtensionClassPropertyGetRevert = null,
-    notification_func: ?c.GDExtensionClassNotification = null,
-    to_string_func: ?c.GDExtensionClassToString = null,
-    reference_func: ?c.GDExtensionClassReference = null,
-    unreference_func: ?c.GDExtensionClassUnreference = null,
-    create_instance_func: ?c.GDExtensionClassCreateInstance = null,
-    free_instance_func: ?c.GDExtensionClassFreeInstance = null,
-    get_virtual_func: ?c.GDExtensionClassGetVirtual = null,
-    get_rid_func: ?c.GDExtensionClassGetRID = null,
+    set_func: ?*const ClassSet = null,
+    get_func: ?*const ClassGet = null,
+    get_property_list_func: ?*const ClassGetPropertyList = null,
+    free_property_list_func: ?*const ClassFreePropertyList = null,
+    property_can_revert_func: ?*const ClassPropertyCanRevert = null,
+    property_get_revert_func: ?*const ClassPropertyGetRevert = null,
+    notification_func: ?*const ClassNotification = null,
+    to_string_func: ?*const ClassToString = null,
+    reference_func: ?*const ClassReference = null,
+    unreference_func: ?*const ClassUnreference = null,
+    create_instance_func: ?*const ClassCreateInstance = null,
+    free_instance_func: ?*const ClassFreeInstance = null,
+    get_virtual_func: ?*const ClassGetVirtual = null,
+    get_rid_func: ?*const ClassGetRID = null,
     class_userdata: ?*anyopaque = null,
 };
 
@@ -270,24 +270,24 @@ pub const ClassCreationInfo2 = struct {
     is_virtual: bool = false,
     is_abstract: bool = false,
     is_exposed: bool = true,
-    set_func: ?c.GDExtensionClassSet = null,
-    get_func: ?c.GDExtensionClassGet = null,
-    get_property_list_func: ?c.GDExtensionClassGetPropertyList = null,
-    free_property_list_func: ?c.GDExtensionClassFreePropertyList = null,
-    property_can_revert_func: ?c.GDExtensionClassPropertyCanRevert = null,
-    property_get_revert_func: ?c.GDExtensionClassPropertyGetRevert = null,
-    validate_property_func: ?c.GDExtensionClassValidateProperty = null,
-    notification_func: ?c.GDExtensionClassNotification2 = null,
-    to_string_func: ?c.GDExtensionClassToString = null,
-    reference_func: ?c.GDExtensionClassReference = null,
-    unreference_func: ?c.GDExtensionClassUnreference = null,
-    create_instance_func: ?c.GDExtensionClassCreateInstance = null,
-    free_instance_func: ?c.GDExtensionClassFreeInstance = null,
-    recreate_instance_func: ?c.GDExtensionClassRecreateInstance = null,
-    get_virtual_func: ?c.GDExtensionClassGetVirtual = null,
-    get_virtual_call_data_func: ?c.GDExtensionClassGetVirtualCallData = null,
-    call_virtual_with_data_func: ?c.GDExtensionClassCallVirtualWithData = null,
-    get_rid_func: ?c.GDExtensionClassGetRID = null,
+    set_func: ?*const ClassSet = null,
+    get_func: ?*const ClassGet = null,
+    get_property_list_func: ?*const ClassGetPropertyList = null,
+    free_property_list_func: ?*const ClassFreePropertyList = null,
+    property_can_revert_func: ?*const ClassPropertyCanRevert = null,
+    property_get_revert_func: ?*const ClassPropertyGetRevert = null,
+    validate_property_func: ?*const ClassValidateProperty = null,
+    notification_func: ?*const ClassNotification2 = null,
+    to_string_func: ?*const ClassToString = null,
+    reference_func: ?*const ClassReference = null,
+    unreference_func: ?*const ClassUnreference = null,
+    create_instance_func: ?*const ClassCreateInstance = null,
+    free_instance_func: ?*const ClassFreeInstance = null,
+    recreate_instance_func: ?*const ClassRecreateInstance = null,
+    get_virtual_func: ?*const ClassGetVirtual = null,
+    get_virtual_call_data_func: ?*const ClassGetVirtualCallData = null,
+    call_virtual_with_data_func: ?*const ClassCallVirtualWithData = null,
+    get_rid_func: ?*const ClassGetRID = null,
     class_userdata: ?*anyopaque = null,
 };
 
@@ -296,53 +296,51 @@ pub const ClassCreationInfo3 = struct {
     is_abstract: bool = false,
     is_exposed: bool = true,
     is_runtime: bool = false,
-    set_func: ?c.GDExtensionClassSet = null,
-    get_func: ?c.GDExtensionClassGet = null,
-    get_property_list_func: ?c.GDExtensionClassGetPropertyList = null,
-    free_property_list_func: ?c.GDExtensionClassFreePropertyList2 = null,
-    property_can_revert_func: ?c.GDExtensionClassPropertyCanRevert = null,
-    property_get_revert_func: ?c.GDExtensionClassPropertyGetRevert = null,
-    validate_property_func: ?c.GDExtensionClassValidateProperty = null,
-    notification_func: ?c.GDExtensionClassNotification2 = null,
-    to_string_func: ?c.GDExtensionClassToString = null,
-    reference_func: ?c.GDExtensionClassReference = null,
-    unreference_func: ?c.GDExtensionClassUnreference = null,
-    create_instance_func: ?c.GDExtensionClassCreateInstance = null,
-    free_instance_func: ?c.GDExtensionClassFreeInstance = null,
-    recreate_instance_func: ?c.GDExtensionClassRecreateInstance = null,
-    get_virtual_func: ?c.GDExtensionClassGetVirtual = null,
-    get_virtual_call_data_func: ?c.GDExtensionClassGetVirtualCallData = null,
-    call_virtual_with_data_func: ?c.GDExtensionClassCallVirtualWithData = null,
-    get_rid_func: ?c.GDExtensionClassGetRID = null,
+    set_func: ?*const ClassSet = null,
+    get_func: ?*const ClassGet = null,
+    get_property_list_func: ?*const ClassGetPropertyList = null,
+    free_property_list_func: ?*const ClassFreePropertyList2 = null,
+    property_can_revert_func: ?*const ClassPropertyCanRevert = null,
+    property_get_revert_func: ?*const ClassPropertyGetRevert = null,
+    validate_property_func: ?*const ClassValidateProperty = null,
+    notification_func: ?*const ClassNotification2 = null,
+    to_string_func: ?*const ClassToString = null,
+    reference_func: ?*const ClassReference = null,
+    unreference_func: ?*const ClassUnreference = null,
+    create_instance_func: ?*const ClassCreateInstance = null,
+    free_instance_func: ?*const ClassFreeInstance = null,
+    recreate_instance_func: ?*const ClassRecreateInstance = null,
+    get_virtual_func: ?*const ClassGetVirtual = null,
+    get_virtual_call_data_func: ?*const ClassGetVirtualCallData = null,
+    call_virtual_with_data_func: ?*const ClassCallVirtualWithData = null,
+    get_rid_func: ?*const ClassGetRID = null,
     class_userdata: ?*anyopaque = null,
 };
 
 pub const ClassCreationInfo4 = struct {
-    parent_class_name: [*:0]const u8,
-    class_name: [*:0]const u8,
     is_virtual: bool = false,
     is_abstract: bool = false,
     is_exposed: bool = true,
     is_runtime: bool = false,
     icon_path: ?[*:0]const u8 = null,
 
-    set_func: ?c.GDExtensionClassSet = null,
-    get_func: ?c.GDExtensionClassGet = null,
-    get_property_list_func: ?c.GDExtensionClassGetPropertyList = null,
-    free_property_list_func: ?c.GDExtensionClassFreePropertyList2 = null,
-    property_can_revert_func: ?c.GDExtensionClassPropertyCanRevert = null,
-    property_get_revert_func: ?c.GDExtensionClassPropertyGetRevert = null,
-    validate_property_func: ?c.GDExtensionClassValidateProperty = null,
-    notification_func: ?c.GDExtensionClassNotification2 = null,
-    to_string_func: ?c.GDExtensionClassToString = null,
-    reference_func: ?c.GDExtensionClassReference = null,
-    unreference_func: ?c.GDExtensionClassUnreference = null,
-    create_instance_func: ?c.GDExtensionClassCreateInstance2 = null,
-    free_instance_func: ?c.GDExtensionClassFreeInstance = null,
-    recreate_instance_func: ?c.GDExtensionClassRecreateInstance = null,
-    get_virtual_func: ?c.GDExtensionClassGetVirtual2 = null,
-    get_virtual_call_data_func: ?c.GDExtensionClassGetVirtualCallData2 = null,
-    call_virtual_with_data_func: ?c.GDExtensionClassCallVirtualWithData = null,
+    set_func: ?*const ClassSet = null,
+    get_func: ?*const ClassGet = null,
+    get_property_list_func: ?*const ClassGetPropertyList = null,
+    free_property_list_func: ?*const ClassFreePropertyList2 = null,
+    property_can_revert_func: ?*const ClassPropertyCanRevert = null,
+    property_get_revert_func: ?*const ClassPropertyGetRevert = null,
+    validate_property_func: ?*const ClassValidateProperty = null,
+    notification_func: ?*const ClassNotification2 = null,
+    to_string_func: ?*const ClassToString = null,
+    reference_func: ?*const ClassReference = null,
+    unreference_func: ?*const ClassUnreference = null,
+    create_instance_func: ?*const ClassCreateInstance2 = null,
+    free_instance_func: ?*const ClassFreeInstance = null,
+    recreate_instance_func: ?*const ClassRecreateInstance = null,
+    get_virtual_func: ?*const ClassGetVirtual2 = null,
+    get_virtual_call_data_func: ?*const ClassGetVirtualCallData2 = null,
+    call_virtual_with_data_func: ?*const ClassCallVirtualWithData = null,
     class_userdata: ?*anyopaque = null,
 };
 
@@ -1778,7 +1776,7 @@ pub fn objectMethodBindPtrcall(method_bind: *MethodBind, instance: ?*Object, arg
 /// @return A pointer to a function that can create a Variant of the given type from a raw value.
 ///
 /// @since 4.1
-pub fn getVariantFromTypeConstructor(variant_tag: Variant.Tag) c {
+pub fn getVariantFromTypeConstructor(variant_tag: Variant.Tag) ?*const VariantFromTypeConstructorFunc {
     return raw.getVariantFromTypeConstructor(@intFromEnum(variant_tag));
 }
 
@@ -1789,7 +1787,7 @@ pub fn getVariantFromTypeConstructor(variant_tag: Variant.Tag) c {
 /// @return A pointer to a function that can get the raw value from a Variant of the given type.
 ///
 /// @since 4.1
-pub fn getVariantToTypeConstructor(variant_tag: Variant.Tag) c.GDExtensionTypeFromVariantConstructorFunc {
+pub fn getVariantToTypeConstructor(variant_tag: Variant.Tag) ?*const TypeFromVariantConstructorFunc {
     return raw.getVariantToTypeConstructor(@intFromEnum(variant_tag));
 }
 
@@ -1801,7 +1799,7 @@ pub fn getVariantToTypeConstructor(variant_tag: Variant.Tag) c.GDExtensionTypeFr
 /// @return A pointer to a function that can call one of the constructors for a type of Variant.
 ///
 /// @since 4.1
-pub fn variantGetPtrConstructor(variant_tag: Variant.Tag, constructor: i32) c.GDExtensionPtrConstructor {
+pub fn variantGetPtrConstructor(variant_tag: Variant.Tag, constructor: i32) ?*const PtrConstructor {
     return raw.variantGetPtrConstructor(@intFromEnum(variant_tag), constructor);
 }
 
@@ -1812,7 +1810,7 @@ pub fn variantGetPtrConstructor(variant_tag: Variant.Tag, constructor: i32) c.GD
 /// @return A pointer to a function than can call the destructor for a type of Variant.
 ///
 /// @since 4.1
-pub fn variantGetPtrDestructor(variant_tag: Variant.Tag) c.GDExtensionPtrDestructor {
+pub fn variantGetPtrDestructor(variant_tag: Variant.Tag) ?*const PtrDestructor {
     return raw.variantGetPtrDestructor(@intFromEnum(variant_tag));
 }
 
@@ -1850,7 +1848,7 @@ pub fn variantConstruct(variant_tag: Variant.Tag, args: []const *const Variant) 
 /// @return A pointer to a function that can call a member's setter on the given Variant type.
 ///
 /// @since 4.1
-pub fn variantGetPtrSetter(variant_tag: Variant.Tag, member: *const StringName) c.GDExtensionPtrSetter {
+pub fn variantGetPtrSetter(variant_tag: Variant.Tag, member: *const StringName) ?*const PtrSetter {
     return raw.variantGetPtrSetter(@intFromEnum(variant_tag), member.constPtr());
 }
 
@@ -1862,7 +1860,7 @@ pub fn variantGetPtrSetter(variant_tag: Variant.Tag, member: *const StringName) 
 /// @return A pointer to a function that can call a member's getter on the given Variant type.
 ///
 /// @since 4.1
-pub fn variantGetPtrGetter(variant_tag: Variant.Tag, member: *const StringName) c.GDExtensionPtrGetter {
+pub fn variantGetPtrGetter(variant_tag: Variant.Tag, member: *const StringName) ?*const PtrGetter {
     return raw.variantGetPtrGetter(@intFromEnum(variant_tag), member.constPtr());
 }
 
@@ -1873,7 +1871,7 @@ pub fn variantGetPtrGetter(variant_tag: Variant.Tag, member: *const StringName) 
 /// @return A pointer to a function that can set an index on the given Variant type.
 ///
 /// @since 4.1
-pub fn variantGetPtrIndexedSetter(variant_tag: Variant.Tag) c.GDExtensionPtrIndexedSetter {
+pub fn variantGetPtrIndexedSetter(variant_tag: Variant.Tag) ?*const PtrIndexedSetter {
     return raw.variantGetPtrIndexedSetter(@intFromEnum(variant_tag));
 }
 
@@ -1884,7 +1882,7 @@ pub fn variantGetPtrIndexedSetter(variant_tag: Variant.Tag) c.GDExtensionPtrInde
 /// @return A pointer to a function that can get an index on the given Variant type.
 ///
 /// @since 4.1
-pub fn variantGetPtrIndexedGetter(variant_tag: Variant.Tag) c.GDExtensionPtrIndexedGetter {
+pub fn variantGetPtrIndexedGetter(variant_tag: Variant.Tag) ?*const PtrIndexedGetter {
     return raw.variantGetPtrIndexedGetter(@intFromEnum(variant_tag));
 }
 
@@ -1895,7 +1893,7 @@ pub fn variantGetPtrIndexedGetter(variant_tag: Variant.Tag) c.GDExtensionPtrInde
 /// @return A pointer to a function that can set a key on the given Variant type.
 ///
 /// @since 4.1
-pub fn variantGetPtrKeyedSetter(variant_tag: Variant.Tag) c.GDExtensionPtrKeyedSetter {
+pub fn variantGetPtrKeyedSetter(variant_tag: Variant.Tag) ?*const PtrKeyedSetter {
     return raw.variantGetPtrKeyedSetter(@intFromEnum(variant_tag));
 }
 
@@ -1906,7 +1904,7 @@ pub fn variantGetPtrKeyedSetter(variant_tag: Variant.Tag) c.GDExtensionPtrKeyedS
 /// @return A pointer to a function that can get a key on the given Variant type.
 ///
 /// @since 4.1
-pub fn variantGetPtrKeyedGetter(variant_tag: Variant.Tag) c.GDExtensionPtrKeyedGetter {
+pub fn variantGetPtrKeyedGetter(variant_tag: Variant.Tag) ?*const PtrKeyedGetter {
     return raw.variantGetPtrKeyedGetter(@intFromEnum(variant_tag));
 }
 
@@ -1917,7 +1915,7 @@ pub fn variantGetPtrKeyedGetter(variant_tag: Variant.Tag) c.GDExtensionPtrKeyedG
 /// @return A pointer to a function that can check a key on the given Variant type.
 ///
 /// @since 4.1
-pub fn variantGetPtrKeyedChecker(variant_tag: Variant.Tag) c.GDExtensionPtrKeyedChecker {
+pub fn variantGetPtrKeyedChecker(variant_tag: Variant.Tag) ?*const PtrKeyedChecker {
     return raw.variantGetPtrKeyedChecker(@intFromEnum(variant_tag));
 }
 
@@ -1944,7 +1942,7 @@ pub fn variantGetConstantValue(variant_tag: Variant.Tag, constant_name: *const S
 /// @return A pointer to a function that can call a Variant utility function.
 ///
 /// @since 4.1
-pub fn variantGetPtrUtilityFunction(function_name: *const StringName, hash: i64) c.GDExtensionPtrUtilityFunction {
+pub fn variantGetPtrUtilityFunction(function_name: *const StringName, hash: i64) ?*const PtrUtilityFunction {
     return raw.variantGetPtrUtilityFunction(function_name.constPtr(), hash);
 }
 
@@ -2572,7 +2570,7 @@ pub fn editorHelpLoadXmlFromUtf8Chars(data: [*:0]const u8) void {
 /// @return A pointer to a function that can evaluate the given Variant operator on the given Variant types.
 ///
 /// @since 4.1
-pub fn variantGetPtrOperatorEvaluator(op: Variant.Operator, a: Variant.Tag, b: Variant.Tag) c.GDExtensionPtrOperatorEvaluator {
+pub fn variantGetPtrOperatorEvaluator(op: Variant.Operator, a: Variant.Tag, b: Variant.Tag) ?*const PtrOperatorEvaluator {
     return raw.variantGetPtrOperatorEvaluator(@intFromEnum(op), @intFromEnum(a), @intFromEnum(b));
 }
 
@@ -2586,7 +2584,7 @@ pub fn variantGetPtrOperatorEvaluator(op: Variant.Operator, a: Variant.Tag, b: V
 /// @return A pointer to a function that can call a builtin method on a type of Variant.
 ///
 /// @since 4.1
-pub fn variantGetPtrBuiltinMethod(variant_tag: Variant.Tag, method: *const StringName, hash: i64) c.GDExtensionPtrBuiltInMethod {
+pub fn variantGetPtrBuiltinMethod(variant_tag: Variant.Tag, method: *const StringName, hash: i64) ?*const PtrBuiltInMethod {
     return raw.variantGetPtrBuiltinMethod(@intFromEnum(variant_tag), method.constPtr(), hash);
 }
 
@@ -2721,7 +2719,7 @@ pub fn classdbRegisterExtensionClassPropertyIndexed(class_name: *const StringNam
 /// @return A pointer to a type-specific function that returns a pointer to the internal value of a variant. Check the implementation of this function (gdextension_variant_get_ptr_internal_getter) for pointee type info of each variant type.
 ///
 /// @since 4.4
-pub fn getVariantGetInternalPtrFunc(variant_tag: Variant.Tag) ?c.GDExtensionVariantGetInternalPtrFunc {
+pub fn getVariantGetInternalPtrFunc(variant_tag: Variant.Tag) ?*const VariantGetInternalPtrFunc {
     return raw.getVariantGetInternalPtrFunc(@intFromEnum(variant_tag));
 }
 
@@ -2753,7 +2751,102 @@ pub fn stringNewWithUtf32Chars(utf32: [*:0]const u32) String {
 
 const raw: *Interface = &@import("../gdzig_bindings.zig").raw;
 
+// Callback type aliases
+pub const VariantFromTypeConstructorFunc = Child(Child(c.GDExtensionVariantFromTypeConstructorFunc));
+pub const TypeFromVariantConstructorFunc = Child(Child(c.GDExtensionTypeFromVariantConstructorFunc));
+pub const VariantGetInternalPtrFunc = Child(Child(c.GDExtensionVariantGetInternalPtrFunc));
+pub const PtrOperatorEvaluator = Child(Child(c.GDExtensionPtrOperatorEvaluator));
+pub const PtrBuiltInMethod = Child(Child(c.GDExtensionPtrBuiltInMethod));
+pub const PtrConstructor = Child(Child(c.GDExtensionPtrConstructor));
+pub const PtrDestructor = Child(Child(c.GDExtensionPtrDestructor));
+pub const PtrSetter = Child(Child(c.GDExtensionPtrSetter));
+pub const PtrGetter = Child(Child(c.GDExtensionPtrGetter));
+pub const PtrIndexedSetter = Child(Child(c.GDExtensionPtrIndexedSetter));
+pub const PtrIndexedGetter = Child(Child(c.GDExtensionPtrIndexedGetter));
+pub const PtrKeyedSetter = Child(Child(c.GDExtensionPtrKeyedSetter));
+pub const PtrKeyedGetter = Child(Child(c.GDExtensionPtrKeyedGetter));
+pub const PtrKeyedChecker = Child(Child(c.GDExtensionPtrKeyedChecker));
+pub const PtrUtilityFunction = Child(Child(c.GDExtensionPtrUtilityFunction));
+
+pub const ClassConstructor = Child(Child(c.GDExtensionClassConstructor));
+
+pub const InstanceBindingCreateCallback = Child(Child(c.GDExtensionInstanceBindingCreateCallback));
+pub const InstanceBindingFreeCallback = Child(Child(c.GDExtensionInstanceBindingFreeCallback));
+pub const InstanceBindingReferenceCallback = Child(Child(c.GDExtensionInstanceBindingReferenceCallback));
+
+pub const ClassSet = Child(Child(c.GDExtensionClassSet));
+pub const ClassGet = Child(Child(c.GDExtensionClassGet));
+pub const ClassGetRID = Child(Child(c.GDExtensionClassGetRID));
+pub const ClassGetPropertyList = Child(Child(c.GDExtensionClassGetPropertyList));
+pub const ClassFreePropertyList = Child(Child(c.GDExtensionClassFreePropertyList));
+pub const ClassFreePropertyList2 = Child(Child(c.GDExtensionClassFreePropertyList2));
+pub const ClassPropertyCanRevert = Child(Child(c.GDExtensionClassPropertyCanRevert));
+pub const ClassPropertyGetRevert = Child(Child(c.GDExtensionClassPropertyGetRevert));
+pub const ClassValidateProperty = Child(Child(c.GDExtensionClassValidateProperty));
+pub const ClassNotification = Child(Child(c.GDExtensionClassNotification));
+pub const ClassNotification2 = Child(Child(c.GDExtensionClassNotification2));
+pub const ClassToString = Child(Child(c.GDExtensionClassToString));
+pub const ClassReference = Child(Child(c.GDExtensionClassReference));
+pub const ClassUnreference = Child(Child(c.GDExtensionClassUnreference));
+pub const ClassCallVirtual = Child(Child(c.GDExtensionClassCallVirtual));
+pub const ClassCreateInstance = Child(Child(c.GDExtensionClassCreateInstance));
+pub const ClassCreateInstance2 = Child(Child(c.GDExtensionClassCreateInstance2));
+pub const ClassFreeInstance = Child(Child(c.GDExtensionClassFreeInstance));
+pub const ClassRecreateInstance = Child(Child(c.GDExtensionClassRecreateInstance));
+pub const ClassGetVirtual = Child(Child(c.GDExtensionClassGetVirtual));
+pub const ClassGetVirtual2 = Child(Child(c.GDExtensionClassGetVirtual2));
+pub const ClassGetVirtualCallData = Child(Child(c.GDExtensionClassGetVirtualCallData));
+pub const ClassGetVirtualCallData2 = Child(Child(c.GDExtensionClassGetVirtualCallData2));
+pub const ClassCallVirtualWithData = Child(Child(c.GDExtensionClassCallVirtualWithData));
+
+pub const ClassMethodCall = Child(Child(c.GDExtensionClassMethodCall));
+pub const ClassMethodValidatedCall = Child(Child(c.GDExtensionClassMethodValidatedCall));
+pub const ClassMethodPtrCall = Child(Child(c.GDExtensionClassMethodPtrCall));
+
+pub const CallableCustomCall = Child(Child(c.GDExtensionCallableCustomCall));
+pub const CallableCustomIsValid = Child(Child(c.GDExtensionCallableCustomIsValid));
+pub const CallableCustomFree = Child(Child(c.GDExtensionCallableCustomFree));
+pub const CallableCustomHash = Child(Child(c.GDExtensionCallableCustomHash));
+pub const CallableCustomEqual = Child(Child(c.GDExtensionCallableCustomEqual));
+pub const CallableCustomLessThan = Child(Child(c.GDExtensionCallableCustomLessThan));
+pub const CallableCustomToString = Child(Child(c.GDExtensionCallableCustomToString));
+pub const CallableCustomGetArgumentCount = Child(Child(c.GDExtensionCallableCustomGetArgumentCount));
+
+pub const ScriptInstanceSet = Child(Child(c.GDExtensionScriptInstanceSet));
+pub const ScriptInstanceGet = Child(Child(c.GDExtensionScriptInstanceGet));
+pub const ScriptInstanceGetPropertyList = Child(Child(c.GDExtensionScriptInstanceGetPropertyList));
+pub const ScriptInstanceFreePropertyList = Child(Child(c.GDExtensionScriptInstanceFreePropertyList));
+pub const ScriptInstanceFreePropertyList2 = Child(Child(c.GDExtensionScriptInstanceFreePropertyList2));
+pub const ScriptInstanceGetClassCategory = Child(Child(c.GDExtensionScriptInstanceGetClassCategory));
+pub const ScriptInstanceGetPropertyType = Child(Child(c.GDExtensionScriptInstanceGetPropertyType));
+pub const ScriptInstanceValidateProperty = Child(Child(c.GDExtensionScriptInstanceValidateProperty));
+pub const ScriptInstancePropertyCanRevert = Child(Child(c.GDExtensionScriptInstancePropertyCanRevert));
+pub const ScriptInstancePropertyGetRevert = Child(Child(c.GDExtensionScriptInstancePropertyGetRevert));
+pub const ScriptInstanceGetOwner = Child(Child(c.GDExtensionScriptInstanceGetOwner));
+pub const ScriptInstancePropertyStateAdd = Child(Child(c.GDExtensionScriptInstancePropertyStateAdd));
+pub const ScriptInstanceGetPropertyState = Child(Child(c.GDExtensionScriptInstanceGetPropertyState));
+pub const ScriptInstanceGetMethodList = Child(Child(c.GDExtensionScriptInstanceGetMethodList));
+pub const ScriptInstanceFreeMethodList = Child(Child(c.GDExtensionScriptInstanceFreeMethodList));
+pub const ScriptInstanceFreeMethodList2 = Child(Child(c.GDExtensionScriptInstanceFreeMethodList2));
+pub const ScriptInstanceHasMethod = Child(Child(c.GDExtensionScriptInstanceHasMethod));
+pub const ScriptInstanceGetMethodArgumentCount = Child(Child(c.GDExtensionScriptInstanceGetMethodArgumentCount));
+pub const ScriptInstanceCall = Child(Child(c.GDExtensionScriptInstanceCall));
+pub const ScriptInstanceNotification = Child(Child(c.GDExtensionScriptInstanceNotification));
+pub const ScriptInstanceNotification2 = Child(Child(c.GDExtensionScriptInstanceNotification2));
+pub const ScriptInstanceToString = Child(Child(c.GDExtensionScriptInstanceToString));
+pub const ScriptInstanceRefCountIncremented = Child(Child(c.GDExtensionScriptInstanceRefCountIncremented));
+pub const ScriptInstanceRefCountDecremented = Child(Child(c.GDExtensionScriptInstanceRefCountDecremented));
+pub const ScriptInstanceGetScript = Child(Child(c.GDExtensionScriptInstanceGetScript));
+pub const ScriptInstanceIsPlaceholder = Child(Child(c.GDExtensionScriptInstanceIsPlaceholder));
+pub const ScriptInstanceGetLanguage = Child(Child(c.GDExtensionScriptInstanceGetLanguage));
+pub const ScriptInstanceFree = Child(Child(c.GDExtensionScriptInstanceFree));
+
+pub const InterfaceFunctionPtr = Child(Child(c.GDExtensionInterfaceFunctionPtr));
+pub const InterfaceGetProcAddress = Child(Child(c.GDExtensionInterfaceGetProcAddress));
+pub const InitializationFunction = Child(Child(c.GDExtensionInitializationFunction));
+
 const std = @import("std");
+const Child = std.meta.Child;
 
 const c = @import("gdextension");
 
